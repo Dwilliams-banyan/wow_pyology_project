@@ -1,2 +1,3 @@
 # wow_pyology_project
-# Pablo Rivera 
+DeMarcus Williams
+# Pablo Rivera
