@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatToDad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+</head>
+
+<body>
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+      font-size: 17px;
+      background-color: #fdfdfd;
+    }
+
+    .shadow {
+      box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-danger {
+      color: #fff;
+      background-color: #f00000;
+      border-color: #dc281e;
+    }
+
+    .masthead {
+      background: #3398E1;
+      height: auto;
+      padding-bottom: 15px;
+      box-shadow: 0 16px 48px #E3E7EB;
+      padding-top: 10px;
+    }
+  </style>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">WhatToDad</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item text-black">
+            <a class="nav-link text-black font-weight-bold" href="{% url 'forumboard' %}">Fatherly Bonds</a>
+          </li>
+          <li class="nav-item text-black">
+            <a class="nav-link text-black font-weight-bold" href="#">Activities</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </nav>
+  {% block content %}
+  <!-- Content Goes here -->
+  {% endblock content %}
+
+  <!-- Footer -->
+  <footer class="py-3 bg-grey">
+    <div>Need to add footer</div>
+  </footer>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+  integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+  integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+</html>
