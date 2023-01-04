@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from whatToDad_app.models import Post
+from whatToDad_app.models import Post, Author
 from django.views import View
+from whatToDad_app.forms import PostForm
 
 
 
@@ -19,8 +20,20 @@ class PostDetail(View):
 
 class ForumBoard(View):
     def get(self, request):
+        post_form = PostForm()
+
+        html_data = {
+            'form': post_form
+        }
+
         return render(
             request=request,
             template_name='forum.html',
-            context= {}
+            context= html_data
         )
+
+    def post(self, request):
+        post_form = PostForm(request.POST)
+        post_form.save()
+
+        return redirect('home')
