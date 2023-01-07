@@ -7,7 +7,7 @@ from whatToDad_app.forms import PostForm
 
 
 class PostList(ListView):
-    queryset = Post.objects.order_by('-created_on')
+    queryset = Post.objects.order_by('-created_on')[:3]
     template_name = 'index.html'
 
 
@@ -23,8 +23,10 @@ class ForumBoard(View):
         post_form = PostForm()
 
         html_data = {
-            'form': post_form
+            'form': post_form,
+            'post_list': Post.objects.order_by('-created_on').all()
         }
+        print(html_data)
 
         return render(
             request=request,
