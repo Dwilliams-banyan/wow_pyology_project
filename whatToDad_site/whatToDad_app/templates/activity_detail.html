@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1> Activity Detail </h1>
+    <br>
+    <div class="container">
+        <div>
+            <p>{{ activity.detail }}</p>
+            <p>{{ activity.min_age }}</p>
+            <p>{{ activity.max_age }}</p>
+            <p>{{ activity.addressNumber }}</p>
+            <p>{{ activity.addressStreet }}</p>
+            <p>{{ activity.city }}</p>
+            <p>{{ activity.state }}</p>
+            <p>{{ activity.zip }}</p>
+        </div>
+        <div class="row">
+            {% for comment in activity_comment_list %}
+                <p>{{ comment.content }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <!-- <form method="POST" action="{% url 'activity' %}">
+        {% csrf_token %}
+        {{ form }}
+        <input type="button" class="btn btn-secondary" value="Cancel" data-dismiss="modal"></input>
+        <input type="submit" class="btn btn-primary" name="add" value="Commentactivity"></input>
+    </form> -->
+</body>
+
+</html>
+{% endblock content %}

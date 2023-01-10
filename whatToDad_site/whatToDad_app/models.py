@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import RegexValidator
+from django.utils.text import gettext_lazy as _
 
 class Author(models.Model):
     first_name = models.CharField(max_length=30)
@@ -20,6 +22,22 @@ class Post(models.Model):
 
 
 class PostLikes(models.Model):
-    user_Id = models.ForeignKey(Author, on_delete= models.CASCADE)
-    post_Id = models.ForeignKey(Post, on_delete= models.CASCADE)
+    user = models.ForeignKey(Author, on_delete= models.CASCADE)
+    post = models.ForeignKey(Post, on_delete= models.CASCADE)
 # Come back to speak about rather we use CASCADE or not
+
+class Activity(models.Model):
+    detail = models.CharField(max_length=200, unique=True)
+    min_age = models.IntegerField()
+    max_age = models.IntegerField()
+    addressNumber = models.IntegerField()
+    addressStreet = models.CharField(max_length=200, unique=True)
+    city = models.CharField(max_length=200, unique=True)
+    state = models.CharField(max_length=200, unique=True)
+    zip = models.IntegerField()
+    user = models.ForeignKey(Author, on_delete= models.CASCADE)
+
+class ActivityComments(models.Model):
+    content = models.CharField(max_length=200, unique=True)
+    activity = models.ForeignKey(Activity, on_delete= models.CASCADE)
+
