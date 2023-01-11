@@ -14,3 +14,9 @@ class ActivityCommentForm(ModelForm):
     class Meta:
         model = ActivityComments
         fields = ['content']
+
+    def __init__(self, *args, **kwargs):
+        activity = kwargs.pop('activity_object')
+        super().__init__(*args, **kwargs)
+
+        self.instance.activity = activity

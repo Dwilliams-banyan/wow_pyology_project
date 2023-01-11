@@ -31,9 +31,9 @@ class Activity(models.Model):
     min_age = models.IntegerField()
     max_age = models.IntegerField()
     addressNumber = models.IntegerField()
-    addressStreet = models.CharField(max_length=200, unique=True)
-    city = models.CharField(max_length=200, unique=True)
-    state = models.CharField(max_length=200, unique=True)
+    addressStreet = models.CharField(max_length=200)
+    city = models.CharField(max_length=200)
+    state = models.CharField(max_length=200)
     zip = models.IntegerField()
     user = models.ForeignKey(Author, on_delete= models.CASCADE)
 

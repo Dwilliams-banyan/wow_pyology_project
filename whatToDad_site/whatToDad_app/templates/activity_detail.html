@@ -30,12 +30,12 @@
         </div>
     </div>
     <br>
-    <!-- <form method="POST" action="{% url 'activity' %}">
+    <form method="POST" action="{% url 'activity_detail' activity.id %}">
         {% csrf_token %}
-        {{ form }}
+        {{ comment_form }}
         <input type="button" class="btn btn-secondary" value="Cancel" data-dismiss="modal"></input>
-        <input type="submit" class="btn btn-primary" name="add" value="Commentactivity"></input>
-    </form> -->
+        <input type="submit" class="btn btn-primary" name="add" value="comment"></input>
+    </form>
 </body>
 
 </html>

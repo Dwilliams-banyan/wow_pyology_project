@@ -20,6 +20,7 @@ class PostDetail(View):
 
 class ForumBoard(View):
     def get(self, request):
+        
         post_form = PostForm()
 
         html_data = {
@@ -33,6 +34,7 @@ class ForumBoard(View):
         )
 
     def post(self, request):
+
         post_form = PostForm(request.POST)
         post_form.save()
 
@@ -40,20 +42,13 @@ class ForumBoard(View):
 
 class ActivityPage(View):
     def get(self, request):
+
         activities = Activity.objects.all()
         activity_form = ActivityForm()
-
-        activity_comments = ActivityComments.objects.all()
-        activity_comment_form = ActivityCommentForm()
-
-        # print('activities', activities)
-        # print('activity_comments', activity_comments)
 
         html_data = {
             'activities': activities,
             'form': activity_form,
-            'activity_comments': activity_comments,
-            'activity_comment_form': activity_comment_form
         }
 
         return render(
@@ -63,39 +58,28 @@ class ActivityPage(View):
         )
 
     def post(self, request):
-        if request.method == 'POST': 
-             activity_form = ActivityForm(request.POST) 
-             activity_form.is_valid()
-             activity_form.save() 
-             
-        activities = Activity.objects.all()
 
-        activity_comments = ActivityComments.objects.all()
-        activity_comment_form = ActivityCommentForm()
+        if 'add' in request.POST: 
+            activity_form = ActivityForm(request.POST) 
+            activity_form.is_valid()
+            activity_form.save() 
 
-        html_data = {
-            'activities': activities,
-            'form': activity_form,
-            'activity_comments': activity_comments,
-            'activity_comment_form': activity_comment_form
-        }
-
-        return render(
-            request=request,
-            template_name='activity.html',
-            context= html_data
-        )
+        return redirect('activity')
 
         
 class ActivityDetailView(View):
     def get(self, request, activity_id):
+
         activity = Activity.objects.get(id=activity_id)
         # come back to look at the filter method
         activity_comments = ActivityComments.objects.filter(activity_id=activity_id)
+        activity_comment_form = ActivityCommentForm(activity_object=activity)
+
         
         html_data={
             'activity': activity,
-            'activity_comment_list': activity_comments
+            'activity_comment_list': activity_comments,
+            'comment_form': activity_comment_form
         }
 
         return render(
@@ -106,4 +90,10 @@ class ActivityDetailView(View):
 
     def post(self, request, activity_id):
         activity = Activity.objects.get(id=activity_id)
-        activity_comment_form = ActivityCommentForm(request.POST)
+
+        if 'add' in request.POST: 
+             activity_comment_form = ActivityCommentForm(request.POST, activity_object=activity) 
+             activity_comment_form.is_valid()
+             activity_comment_form.save() 
+        
+        return redirect('activity_detail', activity_id)
