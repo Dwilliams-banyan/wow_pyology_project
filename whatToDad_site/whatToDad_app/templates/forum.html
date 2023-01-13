@@ -16,14 +16,14 @@
 .rating>label {
   position: relative;
   width: 1em;
-  font-size: 3vw;
+  font-size: 2vw;
   color: #FFD600;
   cursor: pointer;
 }
 
 .rating>label::before {
   content: "\2605";
-  font-size: 3vw;
+  font-size: 2vw;
   position: absolute;
   opacity: 0;
 }
@@ -54,15 +54,15 @@
                                 class="d-block ui-w-40 rounded-circle" alt="">
                             <div class="media-body ml-3"> {{post.title}} </div>
                             <div class="text-muted small ml-3">
-                              <div class="px-4 pt-3">{{ post.created_on }} </div>
+                              <div class="px-4 pt-3">{{post.created_on}} </div>
                             </div>
                         </div>
                     </div>         
                     <div class="card-body">
-                      <p>{{post.content|slice:":200" }}</p>
+                      <p>{{post.content|slice:":200"}}</p>
                       <div class="rating">
                         <h5>Like Post </h5>
-                        <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                        <input type="radio" name="rating" value={{author.id}} id={{author.id}}><label for="1">☆</label>
                       </div>
                         <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
                       </div>

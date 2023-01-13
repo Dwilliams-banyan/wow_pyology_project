@@ -8,7 +8,7 @@ class Author(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    author = models.ForeignKey(Author, on_delete= models.CASCADE,related_name='blog_posts')
+    author = models.ForeignKey(Author, on_delete= models.CASCADE, related_name='blog_posts')
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -17,9 +17,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
-
 class PostLikes(models.Model):
-    user_Id = models.ForeignKey(Author, on_delete= models.CASCADE)
-    post_Id = models.ForeignKey(Post, on_delete= models.CASCADE)
+    user = models.ForeignKey(Author, on_delete= models.CASCADE)
+    post = models.ForeignKey(Post, on_delete= models.CASCADE)
 # Come back to speak about rather we use CASCADE or not

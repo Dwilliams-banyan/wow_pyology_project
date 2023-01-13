@@ -40,14 +40,14 @@
   .rating>label {
     position: relative;
     width: 1em;
-    font-size: 3vw;
+    font-size: 2vw;
     color: #FFD600;
     cursor: pointer;
   }
 
   .rating>label::before {
     content: "\2605";
-    font-size: 3vw;
+    font-size: 2vw;
     position: absolute;
     opacity: 0;
   }
@@ -81,13 +81,13 @@
       {% for post in post_list %}
       <div class="card mb-4">
         <div class="card-body">
-          <h2 class="card-title">{{ post.title }}</h2>
+          <h2 class="card-title">{{post.title}}</h2>
           <div class="rating">
             <h3>Like Post </h3>
-            <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            <input type="radio" name="rating" value={{author.id}} id={{author.id}}><label for="1">☆</label>
           </div>
           <p class="card-text">{{post.content|slice:":200" }}</p>
-          <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+          <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read More &rarr;</a>
         </div>
       </div>
       {% endfor %}

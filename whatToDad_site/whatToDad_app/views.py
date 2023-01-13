@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from whatToDad_app.models import Post, Author
+from whatToDad_app.models import Post
 from django.views import View
 from whatToDad_app.forms import PostForm
 
@@ -26,7 +26,6 @@ class ForumBoard(View):
             'form': post_form,
             'post_list': Post.objects.order_by('-created_on').all()
         }
-        print(html_data)
 
         return render(
             request=request,
