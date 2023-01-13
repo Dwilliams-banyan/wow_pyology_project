@@ -1,11 +1,11 @@
 from django.db import models
-from django.core.validators import RegexValidator
-from django.utils.text import gettext_lazy as _
 
 class Author(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
 
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
@@ -19,7 +19,6 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
 
 class PostLikes(models.Model):
     user = models.ForeignKey(Author, on_delete= models.CASCADE)

@@ -1,6 +1,11 @@
 from django.forms import ModelForm
 
-from whatToDad_app.models import Post, Activity, ActivityComments
+from whatToDad_app.models import Post, Activity, ActivityComments, Author
+
+class AuthorForm(ModelForm):
+    class Meta:
+        model= Author
+        fields=['first_name', 'last_name']
 class PostForm(ModelForm):
     class Meta:
         model = Post

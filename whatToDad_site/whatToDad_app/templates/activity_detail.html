@@ -10,9 +10,25 @@
 </head>
 
 <body>
-    <h1> Activity Detail </h1>
-    <br>
     <div class="container">
+        <br>
+        <div class="row">
+            <h1 class="col"> Activity Detail </h1>
+            <div class="col">
+                <h3>Update or Delete Activity Here</h3>
+                <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="activty_id" label="delete" value="{{activity.id}}" />
+                <input type="submit" name="delete" label="delete" value="Delete" />
+                </form>
+                <form method="POST">
+                {% csrf_token %}
+                {{ activity_form }}
+                <input type="submit" name="update" label="update" value="Update" />
+                </form>
+            </div>
+        </div>
+        <br>
         <div>
             <p>{{ activity.detail }}</p>
             <p>{{ activity.min_age }}</p>

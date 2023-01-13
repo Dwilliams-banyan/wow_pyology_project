@@ -4,12 +4,9 @@ from whatToDad_app.models import Post, Author, Activity, ActivityComments
 from django.views import View
 from whatToDad_app.forms import PostForm, ActivityForm, ActivityCommentForm
 
-
-
 class PostList(ListView):
     queryset = Post.objects.order_by('-created_on')
     template_name = 'index.html'
-
 
 class PostDetail(View):
     def get(self,request):
@@ -20,9 +17,7 @@ class PostDetail(View):
 
 class ForumBoard(View):
     def get(self, request):
-        
         post_form = PostForm()
-
         html_data = {
             'form': post_form
         }
@@ -34,7 +29,6 @@ class ForumBoard(View):
         )
 
     def post(self, request):
-
         post_form = PostForm(request.POST)
         post_form.save()
 
@@ -42,10 +36,8 @@ class ForumBoard(View):
 
 class ActivityPage(View):
     def get(self, request):
-
         activities = Activity.objects.all()
         activity_form = ActivityForm()
-
         html_data = {
             'activities': activities,
             'form': activity_form,
@@ -58,10 +50,8 @@ class ActivityPage(View):
         )
 
     def post(self, request):
-
-        if 'add' in request.POST: 
-            activity_form = ActivityForm(request.POST) 
-            activity_form.is_valid()
+        activity_form = ActivityForm(request.POST) 
+        if activity_form.is_valid():
             activity_form.save() 
 
         return redirect('activity')
@@ -69,17 +59,16 @@ class ActivityPage(View):
         
 class ActivityDetailView(View):
     def get(self, request, activity_id):
-
         activity = Activity.objects.get(id=activity_id)
         # come back to look at the filter method
         activity_comments = ActivityComments.objects.filter(activity_id=activity_id)
         activity_comment_form = ActivityCommentForm(activity_object=activity)
-
-        
+        activity_form = ActivityForm()    
         html_data={
             'activity': activity,
             'activity_comment_list': activity_comments,
-            'comment_form': activity_comment_form
+            'comment_form': activity_comment_form,
+            'activity_form': activity_form,
         }
 
         return render(
@@ -90,10 +79,18 @@ class ActivityDetailView(View):
 
     def post(self, request, activity_id):
         activity = Activity.objects.get(id=activity_id)
-
-        if 'add' in request.POST: 
+        if 'add' in request.POST:
              activity_comment_form = ActivityCommentForm(request.POST, activity_object=activity) 
              activity_comment_form.is_valid()
-             activity_comment_form.save() 
-        
+             activity_comment_form.save()
+
+        elif 'delete' in request.POST:
+            activity.delete()
+            return redirect('activity')
+
+        elif 'update' in request.POST:
+            activity_form = ActivityForm(request.POST, instance=activity)
+            activity_form.is_valid()
+            activity_form.save()
+ 
         return redirect('activity_detail', activity_id)
