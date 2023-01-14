@@ -1,101 +1,100 @@
 {% extends "base.html" %}
 {% load static %}
 
- {% block content %}
+{% block content %}
 
 <style>
-    
-    body {
-        font-family: "Roboto", sans-serif;
-        font-size: 18px;
-        background-color: #fdfdfd;
-    }
+  body {
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    background-color: #fdfdfd;
+  }
 
-    h3 {
-        margin-right: 10px;
-    }
+  h3 {
+    margin-right: 10px;
+  }
 
-    img {
-      height: 20em;
-      width: 50em;
-    }
+  img {
+    height: 20em;
+    width: 50em;
+  }
 
-    .head_text{
-      color: white;
-    }
-    .card{
-      box-shadow: 0 16px 48px #E3E7EB;
-    }
+  .head_text {
+    color: white;
+  }
 
-    .rating {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-    }
+  .card {
+    box-shadow: 0 16px 48px #E3E7EB;
+  }
 
-    .rating > input{ display:none;}
+  .rating {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
 
-    .rating > label {
-      position: relative;
-      width: 1em;
-      font-size: 3vw;
-      color: #FFD600;
-      cursor: pointer;
-    }
+  .rating>input {
+    display: none;
+  }
 
-    .rating > label::before{ 
-      content: "\2605";
-      font-size: 3vw;
-      position: absolute;
-      opacity: 0;
-    }
+  .rating>label {
+    position: relative;
+    width: 1em;
+    font-size: 2vw;
+    color: #FFD600;
+    cursor: pointer;
+  }
 
-    .rating > label:hover:before,
-    .rating > label:hover ~ label:before {
-      opacity: 1 !important;
-    }
+  .rating>label::before {
+    content: "\2605";
+    font-size: 2vw;
+    position: absolute;
+    opacity: 0;
+  }
 
+  .rating>label:hover:before,
+  .rating>label:hover~label:before {
+    opacity: 1 !important;
+  }
 </style>
 
-    <header class="masthead" >
-            <div class="overlay"></div>
-            <div class="container">
-              <div class="row">
-                <div class=" col-md-8 col-md-10 mx-auto">
-                  <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white">This weeks top Fatherly Bond activity</h3>
-                    <img src="{% static 'fatherSon.jpg' %}">
-                  </p>
-                </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-              </header>
-        
-            <div class="container">
-                <div class="row">
-      
-              <!-- Blog Entries Column -->
-              <div class="col-md-8 mt-3 left">
-                    {% for post in post_list %}
-                <div class="card mb-4" >
-                  <div class="card-body">
-                    <h2 class="card-title">{{ post.title }}</h2>
-                    <div class="rating">
-                      <h3>Like Post </h3>
-                      <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-                    </div>
-                    <p class="card-text">{{post.content|slice:":200" }}</p>
-                    <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
-                  </div>
-                 
-                </div>
-                {% endfor %}
-            </div>
-                {% block sidebar %}
-                {% include 'sidebar.html' %}
-                {% endblock sidebar %}
-            </div>
+<header class="masthead">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class=" col-md-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h3 class=" site-heading my-4 mt-3 text-white">This weeks top Fatherly Bond activity</h3>
+          <img src="{% static 'fatherSon.jpg' %}">
         </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+
+    <!-- Blog Entries Column -->
+    <div class="col-md-8 mt-3 left">
+      {% for post in post_list %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">{{post.title}}</h2>
+          <div class="rating">
+            <h3>Like Post </h3>
+            <input type="radio" name="rating" value={{author.id}} id={{author.id}}><label for="1">☆</label>
+          </div>
+          <p class="card-text">{{post.content|slice:":200" }}</p>
+          <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% block sidebar %}
+    {% include 'sidebar.html' %}
+    {% endblock sidebar %}
+  </div>
+</div>
 {%endblock%}
