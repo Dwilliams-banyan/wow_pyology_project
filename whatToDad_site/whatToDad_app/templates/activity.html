@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1> Activities </h1>
+    <br>
+    <div class="container">
+        <div class="row">
+            <ul>
+                {% for activity in activities %}
+                <br>
+                <li><a href="{% url 'activity_detail' activity.id %}"> {{ activity.detail }} </a>
+            </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br>
+    <form method="POST" action="{% url 'activity' %}">
+        {% csrf_token %}
+        {{ form }}
+        <input type="button" class="btn btn-secondary" value="Cancel" data-dismiss="modal"></input>
+        <input type="submit" class="btn btn-primary" name="add" value="Add activity"></input>
+    </form>
+</body>
+
+</html>
+{% endblock content %}
