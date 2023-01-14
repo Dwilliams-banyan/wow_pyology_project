@@ -13,7 +13,7 @@ class PostForm(ModelForm):
 class ActivityForm(ModelForm):
     class Meta:
         model = Activity
-        fields = ['detail', 'min_age', 'max_age', 'addressNumber', 'addressStreet', 'city', 'state', 'zip', 'user']
+        fields = ['detail', 'min_age', 'max_age', 'addressNumber', 'addressStreet', 'city', 'state', 'zip', 'author']
 class ActivityCommentForm(ModelForm):
 
     class Meta:

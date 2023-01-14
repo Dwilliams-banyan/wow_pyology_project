@@ -21,7 +21,7 @@ class Post(models.Model):
         return self.title
 
 class PostLikes(models.Model):
-    user = models.ForeignKey(Author, on_delete= models.CASCADE)
+    author = models.ForeignKey(Author, on_delete= models.CASCADE)
     post = models.ForeignKey(Post, on_delete= models.CASCADE)
 # Come back to speak about rather we use CASCADE or not
 
@@ -34,7 +34,7 @@ class Activity(models.Model):
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
     zip = models.IntegerField()
-    user = models.ForeignKey(Author, on_delete= models.CASCADE)
+    author = models.ForeignKey(Author, on_delete= models.CASCADE)
 
 class ActivityComments(models.Model):
     content = models.CharField(max_length=200, unique=True)
