@@ -16,9 +16,9 @@
         <div class="row">
             <ul>
                 {% for activity in activities %}
-                <br>
-                <li><a href="{% url 'activity_detail' activity.id %}"> {{ activity.detail }} </a>
-            </li>
+                    <li>
+                        <a href="{% url 'activity_detail' activity.id %}"> {{ activity.detail }} </a>
+                    </li>
                 {% endfor %}
             </ul>
         </div>

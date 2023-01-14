@@ -15,6 +15,38 @@ class PostDetail(View):
             template_name = 'post_detail.html'
         )
 
+class PostAction(View):
+    def get(self, request, post_id):
+        post = Post.objects.get(id=post_id)
+        post_form = PostForm(instance=post)
+
+        html_data = {
+            'post':post,
+            'form':post_form
+        }
+
+        return render(
+            request,
+            template_name = 'post_action.html',
+            context= html_data
+        )
+
+    def post(self, request, post_id):
+        post = Post.objects.get(id=post_id)
+
+        if 'delete' in request.POST:
+            post.delete()
+            return redirect('forumboard')
+
+        elif 'update' in request.POST:
+            post_form = PostForm(request.POST, instance=post)
+            post_form.is_valid()
+            post_form.save()
+ 
+        return redirect('post_action', post_id)
+
+        
+
 class ForumBoard(View):
     def get(self, request):
         post_form = PostForm()
@@ -64,7 +96,7 @@ class ActivityDetailView(View):
         # come back to look at the filter method
         activity_comments = ActivityComments.objects.filter(activity_id=activity_id)
         activity_comment_form = ActivityCommentForm(activity_object=activity)
-        activity_form = ActivityForm()    
+        activity_form = ActivityForm(instance=activity)    
         html_data={
             'activity': activity,
             'activity_comment_list': activity_comments,
