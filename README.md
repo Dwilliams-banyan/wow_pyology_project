@@ -41,6 +41,8 @@ A social media web-application with Django.
 + Author Model
 + PostLikes Model
 + Post Model
++ Activity Model
++ ActivityComments Model
 
 ### URIs
 Completed URLS:
@@ -55,6 +57,8 @@ Completed URLS:
     + PostList
     + PostDetail
     + ForumBoard
+    + ActivityPage
+    + ActivityDetailView
 
 + Completed Templates:
     + base.html
