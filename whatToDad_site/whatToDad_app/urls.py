@@ -1,5 +1,5 @@
 from django.urls import path
-from whatToDad_app.views import PostList, PostDetail, ForumBoard, ActivityPage, ActivityDetailView
+from whatToDad_app.views import PostList, PostDetail, ForumBoard, ActivityPage, ActivityDetailView, PostAction
 
 urlpatterns = [
     path('', PostList.as_view(), name='home'),
@@ -7,4 +7,5 @@ urlpatterns = [
     path('activity/<int:activity_id>', ActivityDetailView.as_view(), name='activity_detail'),
     path('fatherlybonds/', ForumBoard.as_view(), name='forumboard'),
     path('<slug:slug>/', PostDetail.as_view(), name='post_detail'),
+    path('post/<int:post_id>', PostAction.as_view(), name='post_action'),
 ]
