@@ -9,10 +9,14 @@ class PostList(ListView):
     template_name = 'index.html'
 
 class PostDetail(View):
-    def get(self,request):
-        return render(
-            model = Post,
-            template_name = 'post_detail.html'
+    def get(self,request, post_id):
+         post = Post.objects.get(id=post_id)
+         return render(
+            request,
+            template_name = 'post_detail.html',
+            context= {
+                'post':post,
+            }
         )
 
 class PostAction(View):
