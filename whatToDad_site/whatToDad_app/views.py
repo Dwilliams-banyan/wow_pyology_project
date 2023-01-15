@@ -2,31 +2,70 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from whatToDad_app.models import Post, Author, Activity, ActivityComments
 from django.views import View
-from whatToDad_app.forms import PostForm, ActivityForm, ActivityCommentForm
+from whatToDad_app.forms import PostForm, ActivityForm, ActivityCommentForm, AuthorForm
 
-class PostList(ListView):
-    queryset = Post.objects.order_by('-created_on')[:3]
-    template_name = 'index.html'
+class PostList(ListView,View):
+    # queryset = Post.objects.order_by('-created_on')[:3]
+    # template_name = 'index.html'
+
+    def get(self, request):
+        author_form = AuthorForm()
+        queryset = Post.objects.order_by('-created_on')[:3]
+
+        return render(
+            request=request,
+            template_name='index.html',
+            context= {
+            'author_form': author_form,
+            'post_list': queryset
+            }
+        )
+
+    def post(self, request):
+        author_form = AuthorForm(request.POST)
+        author_form.is_valid()
+        author_form.save()
+
+        return redirect('home')
+
 
 class PostDetail(View):
-    def get(self,request, post_id):
+    def get(self,request, post_id, author_id):
          post = Post.objects.get(id=post_id)
+         author_form = AuthorForm()
+         author= Author.objects.get(id=author_id)
+
          return render(
             request,
             template_name = 'post_detail.html',
             context= {
                 'post':post,
+                'author':author,
+                'author_form': author_form,
             }
         )
+    
+    def PostLike(request, post_id):
+            # posted = Post.objects.get(id=post_id)
+            print('My Name')
+
+            # if request.author_id in posted.like.all():
+            #     posted.like.add(request.author.id)
+            #     print('My Name', posted.title)
+
+
 
 class PostAction(View):
     def get(self, request, post_id):
         post = Post.objects.get(id=post_id)
         post_form = PostForm(instance=post)
+        # author_form = AuthorForm(request.POST)
+        # author_form.save()
 
         html_data = {
             'post':post,
-            'form':post_form
+            'form':post_form,
+            # 'author_form': author_form,
         }
 
         return render(
@@ -54,9 +93,11 @@ class PostAction(View):
 class ForumBoard(View):
     def get(self, request):
         post_form = PostForm()
+        author_form = AuthorForm()
         html_data = {
             'form': post_form,
-            'post_list': Post.objects.order_by('-created_on').all()
+            'post_list': Post.objects.order_by('-created_on').all(),
+            'author_form': author_form,
         }
 
         return render(
@@ -66,10 +107,17 @@ class ForumBoard(View):
         )
 
     def post(self, request):
-        post_form = PostForm(request.POST)
-        post_form.save()
+        if 'author' in request.POST:
+            author_form = AuthorForm(request.POST)
+            author_form.is_valid()
+            author_form.save()
 
-        return redirect('home')
+            return redirect('home')
+        elif 'add' in request.POST:
+            post_form = PostForm(request.POST)
+            post_form.save()
+
+            return redirect('home')
 
 class ActivityPage(View):
     def get(self, request):

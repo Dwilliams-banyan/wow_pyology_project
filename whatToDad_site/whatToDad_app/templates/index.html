@@ -59,6 +59,11 @@
 </style>
 
 <header class="masthead">
+  <form method="POST">
+    {% csrf_token %}
+    {{ author_form }}
+    <button type="submit" class="btn btn-primary" name="author" value="author">ADD</button>
+  </form>
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
@@ -87,7 +92,7 @@
             <input type="radio" name="rating" value={{author.id}} id={{author.id}}><label for="1">☆</label>
           </div>
           <p class="card-text">{{post.content|slice:":200" }}</p>
-          <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read More &rarr;</a>
+          <a href="{% url 'post_detail' post.id post.author_id %}" class="btn btn-primary">Read More &rarr;</a>
         </div>
       </div>
       {% endfor %}
