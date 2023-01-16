@@ -7,13 +7,16 @@ class Author(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+class Topic(models.Model):
+    name = models.CharField(max_length=30, unique=True)
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(Author, on_delete= models.CASCADE, related_name='blog_posts')
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    like = models.ManyToManyField(Author, related_name="likes")
+    # like = models.ManyToManyField(Author, related_name="likes")
+    topics = models.ManyToManyField(Topic)
 
     class Meta:
         ordering = ['-created_on']
