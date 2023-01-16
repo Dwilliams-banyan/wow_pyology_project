@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from whatToDad_app.models import Post, Activity, ActivityComments, Author
+from whatToDad_app.models import Post, Activity, ActivityComments, Author, Topic
 
 class AuthorForm(ModelForm):
     class Meta:
@@ -25,3 +25,26 @@ class ActivityCommentForm(ModelForm):
         super().__init__(*args, **kwargs)
 
         self.instance.activity = activity
+    
+class TopicForm(ModelForm):
+    class Meta:
+        model = Topic
+        fields =['name']
+
+    # def __init__(self, *args, **kwargs):
+    #     self.post = kwargs.pop('post_object')
+    #     super().__init__(*args, **kwargs)
+
+    #     self.instance.post = self.post
+
+    def save(self, post, *args, **kwargs):
+        # `ModelForm`s come with an attribute called `self.data` that
+        # keeps track of the data in the form as a dictionary.
+        topic_name = self.data['name']
+        self.fields['name'].label=''
+
+        try:
+            topic = Topic.objects.get(name=topic_name)
+        except Topic.DoesNotExist:
+            topic = Topic.objects.create(name=topic_name)
+            post.topics.add(topic)

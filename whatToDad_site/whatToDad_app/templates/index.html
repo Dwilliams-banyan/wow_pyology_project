@@ -87,6 +87,12 @@
       <div class="card mb-4">
         <div class="card-body">
           <h2 class="card-title">{{post.title}}</h2>
+          <ul>
+            {% for topic in topic_list %}
+              <li style = 'display:inline' >{{ topic.name }} | </li>
+            {% endfor %}
+          </ul>
+
           <div class="rating">
             <h3>Like Post </h3>
             <input type="radio" name="rating" value={{author.id}} id={{author.id}}><label for="1">☆</label>

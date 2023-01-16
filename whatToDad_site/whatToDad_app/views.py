@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from whatToDad_app.models import Post, Author, Activity, ActivityComments
+from whatToDad_app.models import Post, Author, Activity, ActivityComments, Topic
 from django.views import View
-from whatToDad_app.forms import PostForm, ActivityForm, ActivityCommentForm, AuthorForm
+from whatToDad_app.forms import PostForm, ActivityForm, ActivityCommentForm, AuthorForm, TopicForm
 
 class PostList(ListView,View):
     # queryset = Post.objects.order_by('-created_on')[:3]
@@ -35,6 +35,7 @@ class PostDetail(View):
          author_form = AuthorForm()
          author= Author.objects.get(id=author_id)
 
+
          return render(
             request,
             template_name = 'post_detail.html',
@@ -46,25 +47,25 @@ class PostDetail(View):
         )
     
     def PostLike(request, post_id):
-            # posted = Post.objects.get(id=post_id)
-            print('My Name')
-
-            # if request.author_id in posted.like.all():
-            #     posted.like.add(request.author.id)
-            #     print('My Name', posted.title)
-
-
+        if request.POST['like']:
+            # postLike = request.POST['like']
+            posted = Post.objects.get(id=post_id)
+            posted.like = True
 
 class PostAction(View):
     def get(self, request, post_id):
         post = Post.objects.get(id=post_id)
         post_form = PostForm(instance=post)
+        topic_form = TopicForm()
+        current_topics = post.topics.all()
         # author_form = AuthorForm(request.POST)
         # author_form.save()
 
         html_data = {
             'post':post,
             'form':post_form,
+            'topic_form': topic_form,
+            'topic_list': current_topics,
             # 'author_form': author_form,
         }
 
@@ -76,7 +77,7 @@ class PostAction(View):
 
     def post(self, request, post_id):
         post = Post.objects.get(id=post_id)
-
+        topic_form = TopicForm(request.POST)
         if 'delete' in request.POST:
             post.delete()
             return redirect('forumboard')
@@ -84,8 +85,19 @@ class PostAction(View):
         elif 'update' in request.POST:
             post_form = PostForm(request.POST, instance=post)
             post_form.is_valid()
-            post_form.save()
- 
+            post_form.save() 
+
+        elif 'topic' in request.POST:
+            # topic_form = TopicForm(request.POST)
+            # topic_form.is_valid()
+            topic_form.save(post) 
+            # topic_form = TopicForm(request.POST)
+            # if topic_form.is_valid():
+            #     topic_name = topic_form.cleaned_data['name']
+            #     if Topic.objects.filter(name=topic_name).count() == 0:
+            #         Topic.objects.create(name=topic_name)     
+            #     topic = Topic.objects.get(name=topic_name)
+            #     Post.objects.get(id=post_id).topic.add(topic)
         return redirect('post_action', post_id)
 
         
@@ -118,6 +130,7 @@ class ForumBoard(View):
             post_form.save()
 
             return redirect('home')
+
 
 class ActivityPage(View):
     def get(self, request):

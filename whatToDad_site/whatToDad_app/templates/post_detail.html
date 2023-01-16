@@ -9,7 +9,7 @@
         <p class="card-text ">{{ post.content | safe }}</p>
         <form method="POST" action="{% url 'post_detail' post.id author.id %}">
           {% csrf_token %}
-          <button type="submit" class="btn btn-warning" >Like</button>
+          <button type="submit" class="btn btn-warning" value="like" name="like" >Like</button>
         </form>
       </div>
     </div>
