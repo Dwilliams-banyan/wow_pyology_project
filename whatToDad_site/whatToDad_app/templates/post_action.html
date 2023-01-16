@@ -21,6 +21,14 @@
         {% csrf_token %}
         <input type="submit" name="delete" label="delete" value="Delete" />
     </form>
+
+    <hr>
+    <br>
+    <form method="POST">
+      {% csrf_token %}
+      {{ topic_form }}
+      <input type="submit" name="topic" label="topic" value="topic" />
+  </form>
   </div>
 </div>
 

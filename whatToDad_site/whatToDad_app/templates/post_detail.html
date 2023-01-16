@@ -12,6 +12,11 @@
           <button type="submit" class="btn btn-warning" >Like</button>
         </form>
       </div>
+      <ul>
+        {% for topic in topic_list %}
+          <li style = 'display:inline' >{{ topic.name }} | </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 </div>
