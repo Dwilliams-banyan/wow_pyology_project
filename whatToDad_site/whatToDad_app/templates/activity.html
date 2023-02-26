@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <h1> Activities </h1>
+    <h1 class="d-flex justify-content-center"> Activities </h1>
     <br>
     <div class="container">
         <div class="row">
@@ -26,9 +26,52 @@
     <br>
     <form method="POST" action="{% url 'activity' %}">
         {% csrf_token %}
-        {{ form }}
-        <input type="button" class="btn btn-secondary" value="Cancel" data-dismiss="modal"></input>
-        <input type="submit" class="btn btn-primary" name="add" value="Add activity"></input>
+        <div class="row">
+            <div class="col">
+                <h3 class="form-control">Detail: {{ form.detail }}</h3>
+            </div>
+
+            <div class="col">
+                <h3 class="form-control">Min-age: {{ form.min_age }}</h3>
+            </div>
+
+            <div class="col">
+                <h3 class="form-control">Max-age: {{ form.max_age }}</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h3 class="form-control">AddressNumber: {{ form.addressNumber }}</h3>
+            </div>
+
+            <div class="col">
+                <h3 class="form-control">AddressStreet: {{ form.addressStreet }}</h3>
+            </div>
+
+            <div class="col">
+                <h3 class="form-control">City: {{ form.city }}</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h3 class="form-control">State: {{ form.state }}</h3>
+            </div>
+
+            <div class="col">
+                <h3 class="form-control">Zip: {{ form.zip }}</h3>
+            </div>
+
+            <div class="col">
+                <h3 class="form-control">Author: {{ form.author }}</h3>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-center">
+            <input type="button" class="btn btn-secondary mx-5" value="Cancel" data-dismiss="modal"></input>
+            <input type="submit" class="btn btn-primary" name="add" value="Add activity"></input>
+        </div>
     </form>
 </body>
 
