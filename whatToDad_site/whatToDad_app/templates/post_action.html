@@ -1,6 +1,33 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container">
+<div class="container px-4 px-lg-5">
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7 mt-5">
+      <!-- Post title-->
+      <div class="post-preview mb-2">
+        <h2 class="post-title font-weight-bold"><u>{{ post.title }}</u></h2>
+        <h3 class="post-subtitle font-weight-light mt-4">{{ post.content }}</h3>
+        <p class="post-meta text-secondary">
+          Posted by
+          <strong>
+            {{ post.author }} on {{ post.created_on }}
+          </strong>
+        </p>
+      </div>
+      <hr class="my-4">
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+<div class="d-flex justify-content-center">
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop">
+    Edit Post
+  </button>
+</div>
+  <!-- Button trigger modal -->
+</div>
+
+<!-- ///////////////////// OLD -->
+<!-- <div class="container">
   <div class="row">
     <div class="col-md-8 card mb-4  mt-3 left  top">
       <div class="card-body">
@@ -10,16 +37,16 @@
       </div>
     </div>
     <br>
-    
+
     <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" name="update" label="update" value="Update" />
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" name="update" label="update" value="Update" />
     </form>
 
     <form method="POST">
-        {% csrf_token %}
-        <input type="submit" name="delete" label="delete" value="Delete" />
+      {% csrf_token %}
+      <input type="submit" name="delete" label="delete" value="Delete" />
     </form>
 
     <hr>
@@ -28,8 +55,48 @@
       {% csrf_token %}
       {{ topic_form }}
       <input type="submit" name="topic" label="topic" value="topic" />
-  </form>
+    </form>
   </div>
-</div>
+</div> -->
+
+<!-- ///////////////////// OLD -->
+
+
+<!-- Modal -->
+<form method="POST">
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">
+            <label for="id_title">Title:</label>
+            {{ form.title }}
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST">
+          <div class="modal-body">
+            {% csrf_token %}
+            <label for="id_content">Content:</label>
+            <h5>{{ form.content }}</h5>
+            <label for="id_slug">Slug:</label>
+            <h5>{{ form.slug }}</h5>
+            <label for="id_author">Author:</label>
+            <h5>{{ form.author }}</h5>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" name="update" label="update" value="Update">Update</button>
+          <button type="submit" class="btn btn-danger" name="delete" label="delete" value="delete">Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
 
 {% endblock content %}

@@ -10,38 +10,78 @@
 </head>
 
 <body>
-    <div class="container">
-        <br>
+    <div class="container col-md-6">
         <div class="row">
-            <h1 class="col"> Activity Detail </h1>
-            <div class="col">
+            <div class="col mt-4">
                 <h3>Update or Delete Activity Here</h3>
                 <form method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="activty_id" label="delete" value="{{activity.id}}" />
-                    <input type="submit" name="delete" label="delete" value="Delete" />
-                </form>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ activity_form }}
-                    <input type="submit" name="update" label="update" value="Update" />
+                    <div class="form-row">
+                        {% csrf_token %}
+                        <div class="col-md-6 mb-3">
+                            <label for="id_addressNumber">Address Number</label>
+                            {{ activity_form.addressNumber }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_addressStreet">Address Street</label>
+                            {{ activity_form.addressStreet }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_city">City</label>
+                            {{ activity_form.city }}
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="id_state">State</label>
+                            {{ activity_form.state }}
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="id_zip">ZipCode</label>
+                            {{ activity_form.zip }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_author">Posters Name</label>
+                        {{ activity_form.author }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_detail">Event Details</label>
+                        {{ activity_form.detail }}
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-2">
+                            <label for="id_min_age">Min Age</label>
+                            {{ activity_form.min_age }}
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="id_max_age">Max Age</label>
+                            {{ activity_form.max_age }}
+                        </div>
+                    </div>
+                    <input class="btn btn-success" type="submit" name="update" label="update" value="Update" />
+                    <input class="btn btn-danger" type="submit" name="delete" label="delete" value="Delete" />
                 </form>
             </div>
         </div>
         <br>
-        <div>
-            <p>{{ activity.detail }}</p>
-            <p>{{ activity.min_age }}</p>
-            <p>{{ activity.max_age }}</p>
-            <p>{{ activity.addressNumber }}</p>
-            <p>{{ activity.addressStreet }}</p>
-            <p>{{ activity.city }}</p>
-            <p>{{ activity.state }}</p>
-            <p>{{ activity.zip }}</p>
+        <div class="card col-md-12  ">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column align-items-center">
+                <h5 class="card-title">Event updated</h5>
+                <textarea cols="40" rows="6">
+                {{ activity.detail }}
+              </textarea>
+                <h5 class="card-title">Age Group: {{ activity.min_age }}-{{ activity.max_age }}</h5>
+                <p class="card-text">Address: {{ activity.addressNumber }} {{ activity.addressStreet }}</p>
+                <p class="card-text">City / State: {{ activity.city }}, {{ activity.state }} </p>
+                <p class="card-text">Zip code: {{ activity.zip }}</p>
+                <a href="{% url 'activity'%}" class="btn btn-primary"> Activities </a>
+            </div>
         </div>
         <div class="row">
             {% for comment in activity_comment_list %}
-                <p>{{ comment.content }}</p>
+            <p>{{ comment.content }}</p>
             {% endfor %}
         </div>
     </div>

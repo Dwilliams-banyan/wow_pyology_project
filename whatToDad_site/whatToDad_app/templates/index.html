@@ -4,77 +4,33 @@
 {% block content %}
 
 <style>
-  body {
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    background-color: #fdfdfd;
-  }
+header.masthead {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-top: calc(12rem + 57px);
+  padding-bottom: 8rem;
+  background: no-repeat center center;
+  background-color: #6c757d;
+  background-size: cover;
+}
 
-  h3 {
-    margin-right: 10px;
-  }
-
-  img {
-    height: 20em;
-    width: 50em;
-  }
-
-  .head_text {
-    color: white;
-  }
-
-  .card {
-    box-shadow: 0 16px 48px #E3E7EB;
-  }
-
-  .rating {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-
-  .rating>input {
-    display: none;
-  }
-
-  .rating>label {
-    position: relative;
-    width: 1em;
-    font-size: 2vw;
-    color: #FFD600;
-    cursor: pointer;
-  }
-
-  .rating>label::before {
-    content: "\2605";
-    font-size: 2vw;
-    position: absolute;
-    opacity: 0;
-  }
-
-  .rating>label:hover:before,
-  .rating>label:hover~label:before {
-    opacity: 1 !important;
-  }
 </style>
+<form method="POST">
+  {% csrf_token %}
+  {{ author_form }}
+  <button type="submit" class="btn btn-primary" name="author" value="author">Add Member</button>
+</form>
 
-<header class="masthead">
-  <form method="POST">
-    {% csrf_token %}
-    {{ author_form }}
-    <button type="submit" class="btn btn-primary" name="author" value="author">ADD</button>
-  </form>
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class=" col-md-8 col-md-10 mx-auto">
-        <div class="site-heading">
-          <h3 class=" site-heading my-4 mt-3 text-white">This weeks top Fatherly Bond activity</h3>
-          <img src="{% static 'fatherSon.jpg' %}">
-        </div>
+<header class="masthead" style="background-image: url('{% static "fatherSon.jpg" %}')">
+  <div class="container position-relative px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7 d-flex justify-content-center">
+              <div class="site-heading">
+                  <h1 class="text-white" >WHAT TO DAD</h1>
+                  <h3 class="subheading text-white">A space where dads talk</h3>
+              </div>
+          </div>
       </div>
-    </div>
-  </div>
   </div>
 </header>
 
