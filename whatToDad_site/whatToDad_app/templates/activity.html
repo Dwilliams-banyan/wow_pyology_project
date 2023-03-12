@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,26 +11,93 @@
 </head>
 
 <body>
-    <h1> Activities </h1>
-    <br>
     <div class="container">
         <div class="row">
-            <ul>
-                {% for activity in activities %}
-                    <li>
-                        <a href="{% url 'activity_detail' activity.id %}"> {{ activity.detail }} </a>
-                    </li>
-                {% endfor %}
-            </ul>
+            <div class="d-flex justify-content-center col-md">
+                <h1>Activities that everyone can enjoy</h1>
+            </div>
         </div>
     </div>
     <br>
-    <form method="POST" action="{% url 'activity' %}">
-        {% csrf_token %}
-        {{ form }}
-        <input type="button" class="btn btn-secondary" value="Cancel" data-dismiss="modal"></input>
-        <input type="submit" class="btn btn-primary" name="add" value="Add activity"></input>
-    </form>
+    <div class="container card">
+        <div class="row">
+            <div class="card col-md">
+                {% for activity in activities %}
+
+                <div class="card" style="width: 15rem;">
+                    <img src="{% static 'gokart.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h5 class="card-title">{{ activity.state }}</h5>
+                        <textarea name="" id="" cols="25" rows="6">
+                        {{ activity.detail }}
+                    </textarea>
+                        <h5 class="card-title">Age Group: {{ activity.min_age }}-{{ activity.max_age }}</h5>
+                        <p class="card-text">Address: {{ activity.addressNumber }} {{ activity.addressStreet }}</p>
+                        <p class="card-text">City / State: {{ activity.city }}, {{ activity.state }} </p>
+                        <p class="card-text">Zip code: {{ activity.zip }}</p>
+                        <a href="{% url 'activity_detail' activity.id %}" class="btn btn-warning"> {{ activity.detail }}
+                        </a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container d-flex justify-content-center">
+        <h2>Have an activity you want to add? Please add it below</h2>
+    </div>
+    <div class="container col-md-6">
+        <form method="POST" action="{% url 'activity' %}">
+            <div class="form-row">
+                {% csrf_token %}
+                <div class="col-md-6 mb-3">
+                    <label for="id_addressNumber">Address Number</label>
+                    {{ form.addressNumber }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_addressStreet">Address Street</label>
+                    {{ form.addressStreet }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_city">City</label>
+                    {{ form.city }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="id_state">State</label>
+                    {{ form.state }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="id_zip">ZipCode</label>
+                    {{ form.zip }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_author">Posters Name</label>
+                {{ form.author }}
+            </div>
+            <div class="form-group">
+                <label for="id_detail">Event Details</label>
+                {{ form.detail }}
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-2">
+                    <label for="id_min_age">Min Age</label>
+                    {{ form.min_age }}
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="id_max_age">Max Age</label>
+                    {{ form.max_age }}
+                </div>
+            </div>
+            <button class="btn btn-primary" name="add" type="submit">Add Activity</button>
+        </form>
+    </div>
+
 </body>
 
 </html>

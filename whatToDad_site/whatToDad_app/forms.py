@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 
 from whatToDad_app.models import Post, Activity, ActivityComments, Author, Topic
 
@@ -14,6 +15,17 @@ class ActivityForm(ModelForm):
     class Meta:
         model = Activity
         fields = ['detail', 'min_age', 'max_age', 'addressNumber', 'addressStreet', 'city', 'state', 'zip', 'author']
+        widgets ={
+            'detail': forms.Textarea(attrs={'class': 'form-control'}),
+            'min_age': forms.TextInput(attrs={'class': 'form-control'}),
+            'max_age': forms.TextInput(attrs={'class': 'form-control'}),
+            'addressNumber': forms.TextInput(attrs={'class': 'form-control'}),
+            'addressStreet': forms.TextInput(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'state': forms.TextInput(attrs={'class': 'form-control'}),
+            'zip': forms.TextInput(attrs={'class': 'form-control'}),
+            'author': forms.Select(attrs={'class': 'form-control'}),
+        }
 class ActivityCommentForm(ModelForm):
 
     class Meta:

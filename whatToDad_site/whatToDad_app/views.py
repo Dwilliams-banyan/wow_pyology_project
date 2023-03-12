@@ -114,17 +114,10 @@ class ForumBoard(View):
         )
 
     def post(self, request):
-        if 'author' in request.POST:
-            author_form = AuthorForm(request.POST)
-            author_form.is_valid()
-            author_form.save()
+        post_form = PostForm(request.POST)
+        post_form.save()
 
-            return redirect('home')
-        elif 'add' in request.POST:
-            post_form = PostForm(request.POST)
-            post_form.save()
-
-            return redirect('home')
+        return redirect('home')
 
 class ActivityPage(View):
     def get(self, request):
