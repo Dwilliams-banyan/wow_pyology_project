@@ -17,12 +17,27 @@
       <hr class="my-4">
     </div>
   </div>
+  <div class="border border-secondary rounded">
+    <h3>Comments</h3>
+    <hr>
+    {% for comment in post_comment_list %}
+      <p>{{ comment.content }}</p>
+    {% endfor %}
+  </div>
+  <br>
+  
   <!-- Button trigger modal -->
-<div class="d-flex justify-content-center">
-  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop">
-    Edit Post
-  </button>
-</div>
+  <div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-success mr-5" data-toggle="modal" data-target="#staticBackdrop">
+      Edit Post
+    </button>
+    <form method="POST" action="{% url 'post_action' post.id %}">
+      {% csrf_token %}
+      {{ post_comment_form }}
+      <input type="button" class="btn btn-secondary" value="Cancel" data-dismiss="modal"></input>
+      <input type="submit" class="btn btn-primary" name="add" value="comment"></input>
+    </form>
+  </div>
   <!-- Button trigger modal -->
 </div>
 

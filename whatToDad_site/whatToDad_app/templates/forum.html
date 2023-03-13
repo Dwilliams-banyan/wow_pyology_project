@@ -56,6 +56,14 @@
               {{ post.author }} on {{ post.created_on }}
             </strong>
           </p>
+          <br>
+          <div class="text-right">
+            {% for comment in post_comment_list %}
+              {% if post.id == comment.post_id %}
+                <p>{{ comment.content }}</p>
+              {% endif %}
+            {% endfor %}
+          </div>
         </div>
         <hr class="my-4">
       </div>
@@ -64,36 +72,6 @@
       <a href="{% url 'post_action' post.id  %}" class="btn btn-primary">Read More &rarr;</a>
     </div>
   </div>
-<!-- /////////////////////////////----------------------original below-->
-  <!-- <div class="container-fluid mt-10">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card mb-4">
-          <div class="card-header">
-            <div class="media flex-wrap w-100 align-items-center"> <img src="/media/{{post.image}}"
-                class="d-block ui-w-40 rounded-circle" alt="">
-              <div class="media-body ml-3"> <a href="/discussion/{{post.id}}" data-abc="true">{{post.author1}}</a>
-              </div>
-              <div class="media-body ml-3"> {{post.title}} </div>
-              <div class="text-muted small ml-3">
-                <div class="px-4 pt-3">{{post.created_on}} </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p>{{post.content|slice:":200"}}</p>
-            <div class="rating">
-              <h5>Like Post </h5>
-              <input type="radio" name="rating" value={{author.id}} id={{author.id}}><label for="1">☆</label>
-            </div>
-            <a href="{% url 'post_action' post.id  %}" class="btn btn-primary">Read More &rarr;</a>
-          </div>
-          <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
   {% endfor %}
 
 </div>

@@ -21,27 +21,32 @@
     <br>
     <div class="container card">
         <div class="row">
-            <div class="card col-md">
-                {% for activity in activities %}
-
-                <div class="card" style="width: 15rem;">
-                    <img src="{% static 'gokart.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body d-flex flex-column align-items-center">
-                        <h5 class="card-title">{{ activity.state }}</h5>
-                        <textarea name="" id="" cols="25" rows="6">
-                        {{ activity.detail }}
-                    </textarea>
-                        <h5 class="card-title">Age Group: {{ activity.min_age }}-{{ activity.max_age }}</h5>
-                        <p class="card-text">Address: {{ activity.addressNumber }} {{ activity.addressStreet }}</p>
-                        <p class="card-text">City / State: {{ activity.city }}, {{ activity.state }} </p>
-                        <p class="card-text">Zip code: {{ activity.zip }}</p>
-                        <a href="{% url 'activity_detail' activity.id %}" class="btn btn-warning"> {{ activity.detail }}
-                        </a>
+            {% for activity in activities %}
+                <div class="card col-3">
+                    <div class="card mx-auto" style="width: 18rem;">
+                        {% if activity.id == 1 %}
+                            <img src="../static/images/bicycle.jpg" class="card-img-top mx-auto" style="width: 200px; height: 200px" alt="...">
+                            {% elif activity.id == 2 %}
+                            <img src="../static/images/football3.jpg" class="card-img-top mx-auto" style="width: 200px; height: 200px" alt="...">
+                            {% else %}
+                            <img src="../static/images/gokart.jpeg" class="card-img-top mx-auto" style="width: 200px; height: 200px" alt="...">
+                            {% endif %}
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <h5 class="card-title">{{ activity.state }}</h5>
+                            <textarea name="" id="" cols="25" rows="6">
+                            {{ activity.detail }}
+                        </textarea>
+                            <h5 class="card-title">Age Group: {{ activity.min_age }}-{{ activity.max_age }}</h5>
+                            <p class="card-text">Address: {{ activity.addressNumber }} {{ activity.addressStreet }}</p>
+                            <p class="card-text">City / State: {{ activity.city }}, {{ activity.state }} </p>
+                            <p class="card-text">Zip code: {{ activity.zip }}</p>
+                            <a href="{% url 'activity_detail' activity.id %}" class="btn btn-warning"> {{ activity.detail }}
+                            </a>
+                        </div>
                     </div>
-                    {% endfor %}
-
                 </div>
-            </div>
+            {% endfor %}
+
         </div>
     </div>
     <br>
