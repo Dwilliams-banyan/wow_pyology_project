@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from whatToDad_app.models import Post, Author, Activity, ActivityComments, Topic
+from whatToDad_app.models import Post, Author, Activity, ActivityComments, PostComments, Topic
 from django.views import View
-from whatToDad_app.forms import PostForm, ActivityForm, ActivityCommentForm, AuthorForm, TopicForm
+from whatToDad_app.forms import PostForm, ActivityForm, ActivityCommentForm, AuthorForm, TopicForm, PostCommentForm
 
 class PostList(ListView,View):
     # queryset = Post.objects.order_by('-created_on')[:3]
@@ -60,7 +60,9 @@ class PostDetail(View):
 class PostAction(View):
     def get(self, request, post_id):
         post = Post.objects.get(id=post_id)
+        post_comments = PostComments.objects.filter(post_id=post_id)
         post_form = PostForm(instance=post)
+        post_comment_form = PostCommentForm(post_object=post)
         topic_form = TopicForm()
         # author_form = AuthorForm(request.POST)
         # author_form.save()
@@ -69,6 +71,8 @@ class PostAction(View):
             'post':post,
             'form':post_form,
             'topic_form': topic_form,
+            'post_comment_list': post_comments,
+            'post_comment_form': post_comment_form,
             # 'author_form': author_form,
         }
 
@@ -81,7 +85,12 @@ class PostAction(View):
     def post(self, request, post_id):
         post = Post.objects.get(id=post_id)
 
-        if 'delete' in request.POST:
+        if 'add' in request.POST:
+             post_comment_form = PostCommentForm(request.POST, post_object=post) 
+             post_comment_form.is_valid()
+             post_comment_form.save()
+
+        elif 'delete' in request.POST:
             post.delete()
             return redirect('forumboard')
 
@@ -105,6 +114,7 @@ class ForumBoard(View):
             'form': post_form,
             'post_list': Post.objects.order_by('-created_on').all(),
             'author_form': author_form,
+            'post_comment_list': PostComments.objects.all(),
         }
 
         return render(

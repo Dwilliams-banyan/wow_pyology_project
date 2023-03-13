@@ -66,7 +66,11 @@
         </div>
         <br>
         <div class="card col-md-12  ">
-            <img src="..." class="card-img-top" alt="...">
+            {% if activity.id == 1 %}
+                <img src="../static/images/bicycle.jpg" class="card-img-top mx-auto" style="width: 200px; height: 200px" alt="...">
+                {% elif activity.id == 2 %}
+                    <img src="../static/images/football3.jpg" class="card-img-top mx-auto" style="width: 200px; height: 200px" alt="...">
+                    {% endif %}
             <div class="card-body d-flex flex-column align-items-center">
                 <h5 class="card-title">Event updated</h5>
                 <textarea cols="40" rows="6">
@@ -79,7 +83,7 @@
                 <a href="{% url 'activity'%}" class="btn btn-primary"> Activities </a>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             {% for comment in activity_comment_list %}
             <p>{{ comment.content }}</p>
             {% endfor %}
@@ -91,7 +95,7 @@
         {{ comment_form }}
         <input type="button" class="btn btn-secondary" value="Cancel" data-dismiss="modal"></input>
         <input type="submit" class="btn btn-primary" name="add" value="comment"></input>
-    </form>
+    </form> -->
 </body>
 
 </html>

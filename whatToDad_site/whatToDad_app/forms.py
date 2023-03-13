@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 
-from whatToDad_app.models import Post, Activity, ActivityComments, Author, Topic
+from whatToDad_app.models import Post, Activity, ActivityComments, Author, Topic, PostComments
 
 class AuthorForm(ModelForm):
     class Meta:
@@ -11,6 +11,18 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         fields =['title', 'slug','author','content']
+
+class PostCommentForm(ModelForm):
+
+    class Meta:
+        model = PostComments
+        fields = ['content']
+
+    def __init__(self, *args, **kwargs):
+        post = kwargs.pop('post_object')
+        super().__init__(*args, **kwargs)
+
+        self.instance.post = post
 class ActivityForm(ModelForm):
     class Meta:
         model = Activity
