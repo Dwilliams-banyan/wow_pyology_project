@@ -1,39 +1,29 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block content %}
-
-<style>
-header.masthead {
-  position: relative;
-  margin-bottom: 3rem;
-  padding-top: calc(12rem + 57px);
-  padding-bottom: 8rem;
-  background: no-repeat center center;
-  background-color: #6c757d;
-  background-size: cover;
-}
-
-</style>
+<!-- Form -->
 <form method="POST">
   {% csrf_token %}
   {{ author_form }}
-  <button type="submit" class="btn btn-primary" name="author" value="author">Add Member</button>
+  <button type="submit" class="btn btn-light" name="author" value="author">Add Member</button>
 </form>
-
-<header class="masthead" style="background-image: url('{% static "fatherSon.jpg" %}')">
+<!-- Form end -->
+<!-- Header -->
+<header class="masthead">
   <div class="container position-relative px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-          <div class="col-md-10 col-lg-8 col-xl-7 d-flex justify-content-center">
-              <div class="site-heading">
-                  <h1 class="text-white" >WHAT TO DAD</h1>
-                  <h3 class="subheading text-white">A space where dads talk</h3>
-              </div>
-          </div>
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7 d-flex justify-content-center">
+        <div class="site-heading">
+          <h1 class="text-white">WHAT TO DAD</h1>
+          <h3 class="subheading text-white">A space where dads talk</h3>
+        </div>
       </div>
+    </div>
   </div>
 </header>
+<!-- Header end -->
 
+<!-- Container -->
 <div class="container">
   <div class="row">
 
@@ -42,20 +32,19 @@ header.masthead {
       {% for post in post_list %}
       <div class="card mb-4">
         <div class="card-body">
-          <h2 class="card-title">{{post.title}}</h2>
-          <div class="rating">
-            <h3>Like Post </h3>
-            <input type="radio" name="rating" value={{author.id}} id={{author.id}}><label for="1">☆</label>
-          </div>
-          <p class="card-text">{{post.content|slice:":200" }}</p>
-          <a href="{% url 'post_detail' post.id post.author_id %}" class="btn btn-primary">Read More &rarr;</a>
+          <h2 class="card-title text-light">{{post.title}}</h2>
+          <p class="card-text text-light">{{post.content|slice:":200" }}</p>
+          <a href="{% url 'post_action' post.id  %}" class="btn btn-light">Read More</a>
         </div>
       </div>
       {% endfor %}
     </div>
+    <!-- Blog Entries Column -->
     {% block sidebar %}
     {% include 'sidebar.html' %}
     {% endblock sidebar %}
   </div>
+  <a href="{% url 'forumboard' %}">Visit our Fatherly Forum</a>
 </div>
+<!-- Container end -->
 {%endblock%}

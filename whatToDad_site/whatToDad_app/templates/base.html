@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,43 +7,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WhatToDad</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{% static '/css/style.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-
 </head>
+<!-- Body -->
 
-<body>
-  <style>
-    body {
-      font-family: "Roboto", sans-serif;
-      font-size: 17px;
-      background-color: #fdfdfd;
-    }
-
-    .shadow {
-      box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-danger {
-      color: #fff;
-      background-color: #f00000;
-      border-color: #dc281e;
-    }
-
-    .masthead {
-      background: #3398E1;
-      height: auto;
-      padding-bottom: 15px;
-      box-shadow: 0 16px 48px #E3E7EB;
-      padding-top: 10px;
-    }
-  </style>
-
+<body class="bodyMain">
   <!-- Navigation -->
-  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light shadow" id="mainNav">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}">WhatToDad</a>
+      <a class="navbar-brand" href="{% url 'home' %}"><img class="" id="logo" src="{% static 'images/logo.jpg' %}" alt=""></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -52,10 +27,10 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item text-black">
-            <a class="nav-link text-black font-weight-bold" href="{% url 'forumboard' %}">Fatherly Bonds</a>
+            <a class="nav-link text-light font-weight-bold" href="{% url 'forumboard' %}">Fatherly Forum</a>
           </li>
           <li class="nav-item text-black">
-            <a class="nav-link text-black font-weight-bold" href="{% url 'activity' %}">Activities</a>
+            <a class="nav-link text-light font-weight-bold" href="{% url 'activity' %}">Activities</a>
           </li>
         </ul>
       </div>
@@ -64,30 +39,41 @@
   </nav>
   <!-- Navigation -->
 
-
   {% block content %}
   {% endblock content %}
+  <!-- container -->
+  <div class="container mt-xl-5">
 
-  <div class="container bg-light mt-xl-5">
-
-    <footer class="text-center text-lg-start border border-white mt-xl-5 pt-4">
+    <footer class="text-center text-lg-start border border-white mt-xl-5 pt-4 mb-4" id="footerMain">
       <!-- Grid container -->
       <div class="container p-4">
         <!--Grid row-->
         <div class="row">
           <!--Grid column-->
-          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 text-light">
             <h5 class="text-uppercase mb-4">OUR WORLD</h5>
 
             <ul class="list-unstyled mb-4">
               <p>
-                <a href="#!" class="">About us</a>
+                <a href="#!" class="text-light">About us</a>
               </p>
               <p>
-                <a href="#!" class="">Our Mission</a>
+                <a href="#!" class="text-light">Our Mission</a>
               </p>
               <p>
-                <a href="#!" class="">Partners</a>
+                <a href="#!" class="text-light">Partners</a>
+              </p>
+            </ul>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 text-light">
+            <h5 class="text-uppercase mb-4 text-light">Assistance</h5>
+
+            <ul class="list-unstyled text-light">
+              <p>
+                <a href="#!" class="text-light">Contact us</a>
               </p>
             </ul>
           </div>
@@ -95,23 +81,11 @@
 
           <!--Grid column-->
           <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-            <h5 class="text-uppercase mb-4">Assistance</h5>
+            <h5 class="text-uppercase mb-4 text-light">Careers</h5>
 
             <ul class="list-unstyled">
               <p>
-                <a href="#!" class="">Contact us</a>
-              </p>
-            </ul>
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-            <h5 class="text-uppercase mb-4">Careers</h5>
-
-            <ul class="list-unstyled">
-              <p>
-                <a href="#!" class="">Jobs</a>
+                <a href="#!" class="text-light">Jobs</a>
                 </li>
             </ul>
           </div>
@@ -119,14 +93,14 @@
 
           <!--Grid column-->
           <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-            <h5 class="text-uppercase mb-4">Sign up to our newsletter</h5>
+            <h5 class="text-uppercase mb-4 text-light">Sign up to our newsletter</h5>
 
             <div class="form-outline form-white mb-4">
               <input type="email" id="form5Example2" class="form-control" />
-              <label class="form-label" for="form5Example2">Email address</label>
+              <label class="form-label text-light" for="form5Example2">Email address</label>
             </div>
 
-            <button type="submit" class="btn btn-warning btn-block">Subscribe</button>
+            <button type="submit" class="btn btn-warning btn-block text-dark">Subscribe</button>
           </div>
           <!--Grid column-->
         </div>
@@ -135,17 +109,16 @@
       <!-- Grid container -->
 
       <!-- Copyright -->
-      <div class="text-center p-3 border-top border-white">
+      <div class="text-center p-3 border-top border-white text-light">
         © 2022 Copyright:
-        <a class="text-black" href="#">WhatToDad</a>
+        <a class="text-black text-light" href="#">WhatToDad</a>
       </div>
       <!-- Copyright -->
     </footer>
-
   </div>
 
-
 </body>
+<!-- body end -->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
   crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"

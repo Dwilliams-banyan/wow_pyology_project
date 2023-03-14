@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 
 <div class="container px-4 px-lg-5">
   <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -14,77 +15,52 @@
           </strong>
         </p>
       </div>
+      <!-- Post title end -->
       <hr class="my-4">
-    </div>
-  </div>
-  <div class="border border-secondary rounded">
-    <h3>Comments</h3>
-    <hr>
-    {% for comment in post_comment_list %}
-      <p>{{ comment.content }}</p>
-    {% endfor %}
-  </div>
-  <br>
-  
+      <!-- Comment Box -->
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header">
+            <strong>Click to</strong> 
+            <a class="card-link" data-toggle="collapse" href="#comment">
+            View Comments
+            </a>
+          </div>
+          <div id="comment" class="collapse" data-parent="#accordion">
+            {% for comment in post_comment_list %}
+            <div class="card-body">
+              <p>{{ comment.content }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <br>
+      </div>
+      <!-- Comment Box end -->
+      
   <!-- Button trigger modal -->
   <div class="d-flex justify-content-center">
-    <button type="button" class="btn btn-success mr-5" data-toggle="modal" data-target="#staticBackdrop">
-      Edit Post
+    <button type="button" class="btn btn-warning mr-5" data-toggle="modal" 
+    data-target="#staticBackdrop">Edit Post
     </button>
     <form method="POST" action="{% url 'post_action' post.id %}">
       {% csrf_token %}
       {{ post_comment_form }}
-      <input type="button" class="btn btn-secondary" value="Cancel" data-dismiss="modal"></input>
-      <input type="submit" class="btn btn-primary" name="add" value="comment"></input>
+      <button type="button" class="btn btn-secondary" value="Cancel">Cancel</button>
+      <button type="submit" class="btn btn-info" name="add" value="comment">Comment</button>
     </form>
   </div>
   <!-- Button trigger modal -->
 </div>
 
-<!-- ///////////////////// OLD -->
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left  top">
-      <div class="card-body">
-        <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
-        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
-        <p class="card-text ">{{ post.content | safe }}</p>
-      </div>
-    </div>
-    <br>
-
-    <form method="POST">
-      {% csrf_token %}
-      {{ form }}
-      <input type="submit" name="update" label="update" value="Update" />
-    </form>
-
-    <form method="POST">
-      {% csrf_token %}
-      <input type="submit" name="delete" label="delete" value="Delete" />
-    </form>
-
-    <hr>
-    <br>
-    <form method="POST">
-      {% csrf_token %}
-      {{ topic_form }}
-      <input type="submit" name="topic" label="topic" value="topic" />
-    </form>
-  </div>
-</div> -->
-
-<!-- ///////////////////// OLD -->
-
-
-<!-- Modal -->
+<!-- Modal Form-->
 <form method="POST">
   <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    aria-labelledby="post-title" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">
+          <h5 class="modal-title" id="post-title">
             <label for="id_title">Title:</label>
             {{ form.title }}
           </h5>
@@ -97,14 +73,12 @@
             {% csrf_token %}
             <label for="id_content">Content:</label>
             <h5>{{ form.content }}</h5>
-            <label for="id_slug">Slug:</label>
-            <h5>{{ form.slug }}</h5>
             <label for="id_author">Author:</label>
             <h5>{{ form.author }}</h5>
           </div>
         </form>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" name="update" label="update" value="Update">Update</button>
+          <button type="submit" class="btn btn-info" name="update" label="update" value="Update">Update</button>
           <button type="submit" class="btn btn-danger" name="delete" label="delete" value="delete">Delete</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
@@ -112,6 +86,5 @@
     </div>
   </div>
 </form>
-
-
+<!-- Modal Form end -->
 {% endblock content %}

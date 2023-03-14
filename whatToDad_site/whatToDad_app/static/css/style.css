@@ -1,0 +1,35 @@
+.bodyMain {
+  background-color: #c7eef5;
+}
+
+header.masthead {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-top: calc(12rem + 57px);
+  padding-bottom: 8rem;
+  background: no-repeat center center;
+  background: linear-gradient(rgba(107, 104, 104, 0.2), rgba(125, 120, 120, 0.1)), url('/static/images/fatherSon.jpg');
+  background-size: cover;
+}
+
+nav#mainNav,#footerMain {
+  background-color: #2c5173;
+}
+
+.card.mb-4,#jumboMain,#cardImg,#cardContainer {
+  background-color: #f07c41;
+}
+
+#logo {
+  width: 100px;
+  height: 60px
+}
+
+select#id_author {
+  height: 2em;
+}
+
+#formPost {
+  display: flex;
+  flex-direction: column;
+}

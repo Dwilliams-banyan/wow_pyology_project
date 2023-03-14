@@ -11,11 +11,9 @@ class Topic(models.Model):
     name = models.CharField(max_length=30, unique=True)
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(Author, on_delete= models.CASCADE, related_name='blog_posts')
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    # like = models.ManyToManyField(Author, related_name="likes")
     topics = models.ManyToManyField(Topic)
 
     class Meta:
@@ -31,7 +29,6 @@ class PostComments(models.Model):
 class PostLikes(models.Model):
     author = models.ForeignKey(Author, on_delete= models.CASCADE)
     post = models.ForeignKey(Post, on_delete= models.CASCADE)
-# Come back to speak about rather we use CASCADE or not
 
 class Activity(models.Model):
     detail = models.CharField(max_length=200, unique=True)
