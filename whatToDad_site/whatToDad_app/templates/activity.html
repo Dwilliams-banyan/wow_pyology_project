@@ -11,48 +11,58 @@
 </head>
 
 <body>
+    <!-- Title -->
     <div class="container">
         <div class="row">
             <div class="d-flex justify-content-center col-md">
-                <h1>Activities that everyone can enjoy</h1>
+                <h1 class="mt-2">Activities that everyone can enjoy</h1>
             </div>
         </div>
     </div>
+    <!-- Title end -->
     <br>
+    <!-- Card Container -->
     <div class="container card">
-        <div class="row">
+        <div class="row d-flex justify-content-around" id="cardContainer">
             {% for activity in activities %}
-                <div class="card col-3">
-                    <div class="card mx-auto" style="width: 18rem;">
-                        {% if activity.id == 1 %}
-                            <img src="../static/images/bicycle.jpg" class="card-img-top mx-auto" style="width: 200px; height: 200px" alt="...">
-                            {% elif activity.id == 2 %}
-                            <img src="../static/images/football3.jpg" class="card-img-top mx-auto" style="width: 200px; height: 200px" alt="...">
-                            {% else %}
-                            <img src="../static/images/gokart.jpeg" class="card-img-top mx-auto" style="width: 200px; height: 200px" alt="...">
-                            {% endif %}
-                        <div class="card-body d-flex flex-column align-items-center">
-                            <h5 class="card-title">{{ activity.state }}</h5>
-                            <textarea name="" id="" cols="25" rows="6">
+            <div class="card" id="cardImg">
+                <div class="card mx-auto" style="width: 18rem;">
+                    {% if activity.id == 1 %}
+                    <img src="../static/images/bicycle.jpg" class="card-img-top mx-auto mt-2"
+                        style="width: 200px; height: 200px" alt="bicycle">
+                    {% elif activity.id == 2 %}
+                    <img src="../static/images/football3.jpg" class="card-img-top mx-auto mt-2"
+                        style="width: 200px; height: 200px" alt="football">
+                    {% else %}
+                    <img src="../static/images/gokart.jpeg" class="card-img-top mx-auto mt-2"
+                        style="width: 200px; height: 200px" alt="gokart">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h5 class="card-title">{{ activity.state }}</h5>
+                        <h4>
+                            <strong class="mb-2">
+                                {{ activity.detail }}
+                            </strong>
+                        </h4>
+                        <h5 class="card-title">Age Group: {{ activity.min_age }}-{{ activity.max_age }}</h5>
+                        <p class="card-text">Address: {{ activity.addressNumber }} {{ activity.addressStreet }}</p>
+                        <p class="card-text">City / State: {{ activity.city }}, {{ activity.state }} </p>
+                        <p class="card-text">Zip code: {{ activity.zip }}</p>
+                        <a href="{% url 'activity_detail' activity.id %}" class="btn btn-secondary">
                             {{ activity.detail }}
-                        </textarea>
-                            <h5 class="card-title">Age Group: {{ activity.min_age }}-{{ activity.max_age }}</h5>
-                            <p class="card-text">Address: {{ activity.addressNumber }} {{ activity.addressStreet }}</p>
-                            <p class="card-text">City / State: {{ activity.city }}, {{ activity.state }} </p>
-                            <p class="card-text">Zip code: {{ activity.zip }}</p>
-                            <a href="{% url 'activity_detail' activity.id %}" class="btn btn-warning"> {{ activity.detail }}
-                            </a>
-                        </div>
+                        </a>
                     </div>
                 </div>
+            </div>
             {% endfor %}
 
         </div>
     </div>
+    <!-- Card Container end -->
     <br>
-
+    <!-- Form Container -->
     <div class="container d-flex justify-content-center">
-        <h2>Have an activity you want to add? Please add it below</h2>
+        <h2 class="mt-2">Have an activity you want to add? Please add it below</h2>
     </div>
     <div class="container col-md-6">
         <form method="POST" action="{% url 'activity' %}">
@@ -99,10 +109,10 @@
                     {{ form.max_age }}
                 </div>
             </div>
-            <button class="btn btn-primary" name="add" type="submit">Add Activity</button>
+            <button class="btn btn-secondary" name="add" type="submit">Add Activity</button>
         </form>
     </div>
-
+    <!-- Form Container end -->
 </body>
 
 </html>

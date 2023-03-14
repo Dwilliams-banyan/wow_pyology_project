@@ -1,78 +1,40 @@
 {% extends 'base.html' %} {% block content %}
 
-
-<style>
-  .rating {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-
-  .rating>input {
-    display: none;
-  }
-
-  .rating>label {
-    position: relative;
-    width: 1em;
-    font-size: 2vw;
-    color: #FFD600;
-    cursor: pointer;
-  }
-
-  .rating>label::before {
-    content: "\2605";
-    font-size: 2vw;
-    position: absolute;
-    opacity: 0;
-  }
-
-  .rating>label:hover:before,
-  .rating>label:hover~label:before {
-    opacity: 1 !important;
-  }
-</style>
-
-<div class="container my-4">
-  <div class="jumbotron">
-    <h1 class="display-5">Fatherly Bonds Discussion Forum</h1>
-    <p class="lead">This is an open space to express fatherly concerns or topics.</p>
-    <hr class="my-4">
-    <button class="btn btn-primary btn-lg" data-target="#questions" data-toggle="modal" role="button">Add Post</button>
+<div class="jumbotron text-white" id="jumboMain">
+  <div class="row justify-content-center">
+    <div class="d-flex flex-column justify-content-center m-2">
+      <h1 class="display-5">Fatherly Bonds Discussion Forum</h1>
+      <p class="lead">This is an open space to express fatherly concerns or topics.</p>
+      <button class="btn btn-light btn-sm col-md-4" data-target="#questions" data-toggle="modal" role="button">Post Topic</button>
+    </div>
   </div>
+</div>
 
-  <!-- Forum Entries Column -->
-  {% for post in post_list %}
-  <div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-      <div class="col-md-10 col-lg-8 col-xl-7 mt-5">
-        <!-- Post title-->
-        <div class="post-preview mb-2">
-          <h2 class="post-title font-weight-bold"><u>{{ post.title }}</u></h2>
-          <h3 class="post-subtitle font-weight-light mt-4">{{ post.content }}</h3>
-          <p class="post-meta text-secondary">
-            Posted by
-            <strong>
-              {{ post.author }} on {{ post.created_on }}
-            </strong>
-          </p>
-          <br>
-          <div class="text-right">
-            {% for comment in post_comment_list %}
-              {% if post.id == comment.post_id %}
-                <p>{{ comment.content }}</p>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-        <hr class="my-4">
+<!-- Forum Entries Column -->
+{% for post in post_list %}
+<div class="container px-4 px-lg-5">
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7 mt-5">
+      <!-- Post title-->
+      <div class="post-preview mb-2">
+        <h2 class="post-title font-weight-bold"><u>{{ post.title }}</u></h2>
+        <h3 class="post-subtitle font-weight-light mt-4">{{ post.content }}</h3>
+        <p class="post-meta text-secondary">
+          Posted by
+          <strong>
+            {{ post.author }} on {{ post.created_on }}
+          </strong>
+        </p>
+        <br>
       </div>
-    </div>
-    <div class="container readmore col d-flex justify-content-center">
-      <a href="{% url 'post_action' post.id  %}" class="btn btn-primary">Read More &rarr;</a>
+      <hr class="my-4">
     </div>
   </div>
-  {% endfor %}
+  <div class="container readmore col d-flex justify-content-center">
+    <a href="{% url 'post_action' post.id  %}" class="btn btn-light">Read More &rarr;</a>
+  </div>
+</div>
+{% endfor %}
 
 </div>
 
@@ -82,7 +44,7 @@
     <div class="modal-content">
       <!-- Modal-header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="ModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="ModalLabel">ADD YOUR TOPIC TO OUR BOARD</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -90,12 +52,12 @@
       <!-- Modal-header -->
       <!-- Modal-body -->
       <div class="modal-body">
-        <form method="POST">
+        <form method="POST" id="formPost">
           {{ form }}
           {% csrf_token %}
           <div class="modal-footer">
             <input type="button" class="btn btn-secondary" value="Cancel" data-dismiss="modal"></input>
-            <input type="submit" class="btn btn-primary" value="Post"></input>
+            <input type="submit" class="btn btn-info" value="Post"></input>
           </div>
         </form>
       </div>

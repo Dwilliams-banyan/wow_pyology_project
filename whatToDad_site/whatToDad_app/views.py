@@ -5,8 +5,6 @@ from django.views import View
 from whatToDad_app.forms import PostForm, ActivityForm, ActivityCommentForm, AuthorForm, TopicForm, PostCommentForm
 
 class PostList(ListView,View):
-    # queryset = Post.objects.order_by('-created_on')[:3]
-    # template_name = 'index.html'
 
     def get(self, request):
         author_form = AuthorForm()
@@ -28,7 +26,6 @@ class PostList(ListView,View):
 
         return redirect('home')
 
-
 class PostDetail(View):
     def get(self,request, post_id, author_id):
          post = Post.objects.get(id=post_id)
@@ -47,16 +44,6 @@ class PostDetail(View):
             }
         )
     
-    def PostLike(request, post_id):
-            # posted = Post.objects.get(id=post_id)
-            print('My Name')
-
-            # if request.author_id in posted.like.all():
-            #     posted.like.add(request.author.id)
-            #     print('My Name', posted.title)
-
-
-
 class PostAction(View):
     def get(self, request, post_id):
         post = Post.objects.get(id=post_id)
@@ -64,8 +51,6 @@ class PostAction(View):
         post_form = PostForm(instance=post)
         post_comment_form = PostCommentForm(post_object=post)
         topic_form = TopicForm()
-        # author_form = AuthorForm(request.POST)
-        # author_form.save()
 
         html_data = {
             'post':post,
@@ -73,7 +58,6 @@ class PostAction(View):
             'topic_form': topic_form,
             'post_comment_list': post_comments,
             'post_comment_form': post_comment_form,
-            # 'author_form': author_form,
         }
 
         return render(
@@ -103,8 +87,6 @@ class PostAction(View):
             topic_form.save(post)
  
         return redirect('post_action', post_id)
-
-        
 
 class ForumBoard(View):
     def get(self, request):
@@ -155,7 +137,6 @@ class ActivityPage(View):
 class ActivityDetailView(View):
     def get(self, request, activity_id):
         activity = Activity.objects.get(id=activity_id)
-        # come back to look at the filter method
         activity_comments = ActivityComments.objects.filter(activity_id=activity_id)
         activity_comment_form = ActivityCommentForm(activity_object=activity)
         activity_form = ActivityForm(instance=activity)    

@@ -10,7 +10,7 @@ class AuthorForm(ModelForm):
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields =['title', 'slug','author','content']
+        fields =['title','author','content']
 
 class PostCommentForm(ModelForm):
 

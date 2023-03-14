@@ -9,12 +9,12 @@
         <p class="card-text ">{{ post.content | safe }}</p>
         <form method="POST" action="{% url 'post_detail' post.id author.id %}">
           {% csrf_token %}
-          <button type="submit" class="btn btn-warning" >Like</button>
+          <button type="submit" class="btn btn-warning">Like</button>
         </form>
       </div>
       <ul>
         {% for topic in topic_list %}
-          <li style = 'display:inline' >{{ topic.name }} | </li>
+        <li style='display:inline'>{{ topic.name }} | </li>
         {% endfor %}
       </ul>
     </div>
